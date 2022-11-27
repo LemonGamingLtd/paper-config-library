@@ -17,6 +17,10 @@ allprojects {
     }
 
     dependencies {
+        implementation("org.apache.commons:commons-lang3:3.12.0")
+        implementation("org.spongepowered:configurate-yaml:4.1.2")
+        implementation("net.fabricmc:mapping-io:0.3.0")
+        implementation("com.mojang:logging:1.1.1")
         compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
     }
 
