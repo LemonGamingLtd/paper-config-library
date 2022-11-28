@@ -11,9 +11,13 @@ public class MainConfig extends ConfigurationPart {
   @Comment("This is the kick message")
   public String kickMessage = "Default kick message";
   
+  @Constraints.Min(10)
+  public int maxPlayers;
+  
   public MongoDatabase mongoDatabase;
 
   public class MongoDatabase extends ConfigurationPart {
+    @Required
     public String uri;
   }
 
