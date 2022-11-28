@@ -1,6 +1,7 @@
 plugins {
     java
     `java-library`
+    `maven-publish`
 
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
@@ -8,6 +9,7 @@ plugins {
 allprojects {
     apply(plugin = "java")
     apply(plugin = "java-library")
+    apply(plugin = "maven-publish")
 
     tasks {
         compileJava  {
@@ -46,6 +48,25 @@ allprojects {
 
         maven {
             url = uri("https://maven.pkg.github.com/LemonGamingLtd/configurate")
+        }
+    }
+
+    publishing {
+        publications {
+            create<MavenPublication>("mavenJava") {
+                from(components["java"])
+            }
+        }
+
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/LemonGamingLtd/Configurate")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
         }
     }
 }

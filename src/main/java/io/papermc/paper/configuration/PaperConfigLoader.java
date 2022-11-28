@@ -13,6 +13,7 @@ import java.lang.reflect.Type;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.UnaryOperator;
 import org.slf4j.Logger;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.ConfigurateException;
@@ -24,19 +25,31 @@ import org.spongepowered.configurate.serialize.SerializationException;
 import org.spongepowered.configurate.util.CheckedFunction;
 import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 
-public class PaperConfig {
+public class PaperConfigLoader {
 
 	private static final Logger LOGGER = LogUtils.getLogger();
 
-	public static <T> T createConfiguration(File configFile, Class<T> configClass) throws ConfigurateException {
-		return createConfiguration(configFile, configClass, defaultLoader());
+	private YamlConfigurationLoader.Builder loaderBuilder;
+
+	public PaperConfigLoader() {
+		loaderBuilder = defaultLoader();
 	}
 
-	public static <T> T createConfiguration(File configFile, Class<T> configClass, YamlConfigurationLoader.Builder loaderBuilder) throws ConfigurateException {
+	public PaperConfigLoader loader(final UnaryOperator<YamlConfigurationLoader.Builder> loaderBuilder) {
+		this.loaderBuilder = loaderBuilder.apply(this.loaderBuilder);
+		return this;
+	}
+
+	public PaperConfigLoader options(final UnaryOperator<ConfigurationOptions> options) {
+		loaderBuilder.defaultOptions(options);
+		return this;
+	}
+
+	public <T> T load(File configFile, Class<T> configClass) throws ConfigurateException {
 		return initializeConfiguration(creator(configClass, true), configFile, loaderBuilder);
 	}
 
-	protected static <T> T initializeConfiguration(final CheckedFunction<ConfigurationNode, T, SerializationException> creator,
+	private static <T> T initializeConfiguration(final CheckedFunction<ConfigurationNode, T, SerializationException> creator,
 			File configFile, YamlConfigurationLoader.Builder loaderBuilder) throws ConfigurateException {
 		final Path configPath = configFile.toPath();
 		final ConfigurationLoader<?> loader = loaderBuilder
@@ -66,7 +79,7 @@ public class PaperConfig {
 					.register(MapSerializer.TYPE, new MapSerializer(false))
 					.register(new EnumValueSerializer())
 					.register(new ComponentSerializer())
-					.register(PaperConfig::isConfigType, factory.asTypeSerializer())
+					.register(PaperConfigLoader::isConfigType, factory.asTypeSerializer())
 					.registerAnnotatedObjects(factory)
 				);
 	}

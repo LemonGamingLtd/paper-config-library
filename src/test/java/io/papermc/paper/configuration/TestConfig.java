@@ -14,7 +14,8 @@ public class TestConfig extends ConfigurationPart {
 	@Test
 	public void testLoadExisting() throws IOException {
 		File file = new File("src/test/resources/testConfig.yml");
-		TestConfig config = PaperConfig.createConfiguration(file, TestConfig.class);
+		PaperConfigLoader loader = new PaperConfigLoader();
+		TestConfig config = loader.load(file, TestConfig.class);
 		assertThat(config.testSection.testName).isEqualTo("nameOverride");
 	}
 
@@ -22,7 +23,8 @@ public class TestConfig extends ConfigurationPart {
 	public void testCreateNew() throws IOException {
 		File file = File.createTempFile( "testConfigCreate", "yml");
 		file.deleteOnExit();
-		TestConfig config = PaperConfig.createConfiguration(file, TestConfig.class);
+		PaperConfigLoader loader = new PaperConfigLoader();
+		TestConfig config = loader.load(file, TestConfig.class);
 	}
 
 	@Comment("Test comment")
