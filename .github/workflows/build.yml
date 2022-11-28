@@ -10,6 +10,8 @@ on:
 
 jobs:
   build:
-    - name: Build
-      run: |
-        ./gradlew clean build publish --stacktrace --refresh-dependencies --gradle-user-home ~/.gradle/
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        run: |
+          ./gradlew clean build publish --stacktrace --refresh-dependencies --gradle-user-home ~/.gradle/
