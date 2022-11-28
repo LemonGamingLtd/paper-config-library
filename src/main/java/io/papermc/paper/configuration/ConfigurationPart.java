@@ -1,6 +1,6 @@
 package io.papermc.paper.configuration;
 
-abstract class ConfigurationPart {
+public abstract class ConfigurationPart {
 
     public static abstract class Post extends ConfigurationPart {
 

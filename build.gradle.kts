@@ -47,7 +47,7 @@ allprojects {
         }
 
         maven {
-            url = uri("https://maven.pkg.github.com/LemonGamingLtd/configurate")
+            url = uri("https://maven.pkg.github.com/LemonGamingLtd/Configurate")
         }
     }
 
@@ -61,7 +61,7 @@ allprojects {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/LemonGamingLtd/Configurate")
+                url = uri("https://maven.pkg.github.com/LemonGamingLtd/paper-config-library")
                 credentials {
                     username = System.getenv("GITHUB_ACTOR")
                     password = System.getenv("GITHUB_TOKEN")
