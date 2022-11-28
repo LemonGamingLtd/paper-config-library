@@ -19,13 +19,21 @@ allprojects {
     dependencies {
         implementation("org.apache.commons:commons-lang3:3.12.0")
         implementation("com.google.guava:guava:31.1-jre")
-        implementation("org.spongepowered:configurate-yaml:4.1.2")
+        implementation("ltd.lemongaming:configurate-yaml:4.2.0-SNAPSHOT")
+        implementation("io.leangen.geantyref:geantyref:1.3.13")
         implementation("org.slf4j:slf4j-api:2.0.5")
         implementation("net.fabricmc:mapping-io:0.3.0")
         implementation("com.mojang:logging:1.1.1")
 
         compileOnly("net.kyori:adventure-api:4.11.0")
         compileOnly("net.kyori:adventure-text-minimessage:4.11.0")
+
+        testImplementation("junit:junit:4.13.2")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+        testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
+        testImplementation("org.assertj:assertj-core:3.23.1")
+        testImplementation("net.kyori:adventure-api:4.11.0")
+        testImplementation("net.kyori:adventure-text-minimessage:4.11.0")
     }
 
     repositories {
@@ -34,6 +42,10 @@ allprojects {
 
         maven {
             url = uri("https://papermc.io/repo/repository/maven-public/")
+        }
+
+        maven {
+            url = uri("https://maven.pkg.github.com/LemonGamingLtd/configurate")
         }
     }
 }

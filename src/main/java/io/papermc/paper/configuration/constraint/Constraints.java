@@ -1,10 +1,7 @@
 package io.papermc.paper.configuration.constraint;
 
-import com.mojang.logging.LogUtils;
-import io.papermc.paper.configuration.TestConfiguration;
 import io.papermc.paper.configuration.type.DoubleOrDefault;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.slf4j.Logger;
 import org.spongepowered.configurate.objectmapping.meta.Constraint;
 import org.spongepowered.configurate.serialize.SerializationException;
 

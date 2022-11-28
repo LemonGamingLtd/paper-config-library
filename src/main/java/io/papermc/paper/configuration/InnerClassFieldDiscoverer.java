@@ -126,7 +126,7 @@ final class InnerClassFieldDiscoverer implements FieldDiscoverer<Map<Field, Obje
         return this.overrides;
     }
 
-    static FieldDiscoverer<?> globalConfig() {
+    static FieldDiscoverer<?> defaultDiscoverer() {
         return new InnerClassFieldDiscoverer(Collections.emptyMap());
     }
 }
